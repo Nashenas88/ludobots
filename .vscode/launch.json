@@ -1,0 +1,32 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Simulate",
+            "type": "python",
+            "request": "launch",
+            "program": "src/simulate.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Python: Generate",
+            "type": "python",
+            "request": "launch",
+            "program": "src/generate.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Python: Analyze",
+            "type": "python",
+            "request": "launch",
+            "program": "src/analyze.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+    ]
+}

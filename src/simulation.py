@@ -13,9 +13,7 @@ class SIMULATION:
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0, 0, c.GRAVITY)
         self.world = WORLD()
-        self.robot = ROBOT("../assets/body.urdf")
-        self.robot.motors[b'Torso_FrontLeg'].Set_Frequency(
-            self.robot.motors[b'Torso_BackLeg'].frequency/2)
+        self.robot = ROBOT("../assets/body.urdf", "assets/brain.nndf")
         self.save_data = True
 
     def Set_Save_Data(self, save_data):
@@ -33,5 +31,6 @@ class SIMULATION:
         for i in range(c.ITERATIONS):
             p.stepSimulation()
             self.robot.Sense(i)
-            self.robot.Act(i)
+            self.robot.Think()
+            self.robot.Act()
             time.sleep(c.LOOP_DELAY)
