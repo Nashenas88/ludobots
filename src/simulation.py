@@ -13,6 +13,7 @@ robotId = p.loadURDF("../assets/body.urdf")
 p.loadSDF("../assets/box.sdf")
 p.setGravity(0, 0, -9.8)
 
+
 pyrosim.Prepare_To_Simulate(robotId)
 backLegSensorValues = numpy.zeros(iterations)
 for i in range(iterations):
@@ -21,4 +22,5 @@ for i in range(iterations):
     time.sleep(1.0/60.0)
 
 p.disconnect()
-print(f'sensor values: {backLegSensorValues}')
+numpy.save("data/sensor_data.npy", backLegSensorValues,
+           allow_pickle=False, fix_imports=False)
