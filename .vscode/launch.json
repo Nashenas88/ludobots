@@ -28,5 +28,13 @@
             "console": "integratedTerminal",
             "justMyCode": true
         },
+        {
+            "name": "Python: Search",
+            "type": "python",
+            "request": "launch",
+            "program": "src/search.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
     ]
 }
