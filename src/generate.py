@@ -10,7 +10,7 @@ def Create_World():
     y = 3
     z = height / 2
 
-    pyrosim.Start_SDF("box.sdf")
+    pyrosim.Start_SDF("../assets/box.sdf")
     pyrosim.Send_Cube(name="Box", pos=[x, y, z], size=[length, width, height])
     pyrosim.End()
 
@@ -20,7 +20,7 @@ def Create_Robot():
     width = 1
     height = 1
 
-    pyrosim.Start_URDF("body.urdf")
+    pyrosim.Start_URDF("../assets/body.urdf")
     pyrosim.Send_Cube(name="Torso", pos=[0, 0, height * 3 / 2], size=[
                       length, width, height])
     pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg",
