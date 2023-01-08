@@ -10,3 +10,4 @@ source environment/bin/activate
 pip3 install wheel
 pip3 install pybullet
 pip3 install numpy
+pip3 install matplotlib
