@@ -9,6 +9,9 @@
             "type": "python",
             "request": "launch",
             "program": "src/simulate.py",
+            "args": [
+                "GUI"
+            ],
             "console": "integratedTerminal",
             "justMyCode": true
         },

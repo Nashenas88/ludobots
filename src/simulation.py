@@ -8,8 +8,12 @@ import time
 
 
 class SIMULATION:
-    def __init__(self):
-        p.connect(p.GUI)
+    def __init__(self, mode):
+        if mode == 'GUI':
+            self.mode = p.GUI
+        else:
+            self.mode = p.DIRECT
+        p.connect(self.mode)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0, 0, c.GRAVITY)
         self.world = WORLD()
@@ -27,10 +31,14 @@ class SIMULATION:
             self.robot.Save_Sensor_Data()
         p.disconnect()
 
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
+
     def Run(self):
         for i in range(c.ITERATIONS):
             p.stepSimulation()
             self.robot.Sense(i)
             self.robot.Think()
             self.robot.Act()
-            time.sleep(c.LOOP_DELAY)
+            if self.mode == p.GUI:
+                time.sleep(c.LOOP_DELAY)

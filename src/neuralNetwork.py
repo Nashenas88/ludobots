@@ -28,7 +28,6 @@ class NEURAL_NETWORK(neuralNetwork.NEURAL_NETWORK):
                 NEURAL_NETWORK.Allow_Presynaptic_Neuron_To_Influence_Neuron(
                     neuron, synapse.Get_Weight(), self.neurons[pre].Get_Value())
         neuron.Threshold()
-        print(f'{neuron} now at {neuron.Get_Value()}')
 
     def Allow_Presynaptic_Neuron_To_Influence_Neuron(neuron, weight, value):
         neuron.Add_To_Value(weight * value)

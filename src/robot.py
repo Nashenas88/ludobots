@@ -1,9 +1,10 @@
 from sensor import SENSOR
 from motor import MOTOR
+from neuralNetwork import NEURAL_NETWORK
 
 import pybullet as p
 from pyrosim import pyrosim
-from neuralNetwork import NEURAL_NETWORK
+import numpy
 
 
 class ROBOT:
@@ -13,6 +14,13 @@ class ROBOT:
         pyrosim.Prepare_To_Simulate(self.robotId)
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
+
+    def Get_Fitness(self):
+        stateOfLinkZero = p.getLinkState(self.robotId, 0)
+        positionOfLinkZero = stateOfLinkZero[0]
+        xCoordOfLinkZero = positionOfLinkZero[0]
+        numpy.save('data/fitness.npy', xCoordOfLinkZero,
+                   allow_pickle=False, fix_imports=False)
 
     def Prepare_To_Sense(self):
         self.sensors = {}
