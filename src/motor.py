@@ -8,9 +8,6 @@ class MOTOR:
     def __init__(self, jointName):
         self.jointName = jointName
         self.motor_force = c.MOTOR_FORCE
-        self.amplitude = c.BACK_LEG_AMPLITUDE
-        self.frequency = c.BACK_LEG_FREQUENCY
-        self.phase_offset = c.BACK_LEG_PHASE_OFFSET
 
     def Set_Value(self, robotId, desiredAngle):
         pyrosim.Set_Motor_For_Joint(

@@ -1,6 +1,7 @@
 from sensor import SENSOR
 from motor import MOTOR
 from neuralNetwork import NEURAL_NETWORK
+import constants as c
 
 import numpy
 import os
@@ -48,7 +49,7 @@ class ROBOT:
             if neuron.Is_Motor_Neuron():
                 jointName = neuron.Get_Joint_Name()
                 self.motors[jointName.encode('ascii')].Set_Value(self.robotId,
-                                                                 neuron.Get_Value())
+                                                                 neuron.Get_Value() * c.MOTOR_JOINT_RANGE)
 
     def Save_Motor_Targets(self):
         for motor in self.motors.values():
