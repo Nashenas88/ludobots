@@ -2,25 +2,36 @@ import numpy
 import os
 from pyrosim import pyrosim
 import random
+import time
 
 
 class SOLUTION:
-    def __init__(self):
+    def __init__(self, id):
+        self.id = id
         self.weights = numpy.random.rand(3, 2) * 2 - 1
 
     def Show(self):
+        if hasattr(self, 'fitness'):
+            print(f'Id: {self.id} Fitness: {self.fitness}')
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
-        os.system("python3 src/simulate.py GUI")
+        os.system(f"python3 src/simulate.py GUI {self.id} >/dev/null 2>&1 &")
 
-    def Evaluate(self):
+    def Start_Simulation(self):
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
-        os.system("python3 src/simulate.py DIRECT")
+        os.system(
+            f"python3 src/simulate.py DIRECT {self.id} >/dev/null 2>&1 &")
+
+    def Wait_For_Simulation(self):
+        fitnessFile = f'data/fitness{self.id}.npy'
+        while not os.path.exists(fitnessFile):
+            time.sleep(0.01)
         self.fitness = numpy.load(
-            'data/fitness.npy', allow_pickle=False, fix_imports=False)
+            fitnessFile, allow_pickle=False, fix_imports=False)
+        os.remove(fitnessFile)
 
     def Mutate(self):
         self.weights[random.randint(0, 2)][random.randint(
@@ -35,7 +46,7 @@ class SOLUTION:
         y = 3
         z = height / 2
 
-        pyrosim.Start_SDF("assets/box.sdf")
+        pyrosim.Start_SDF(f"assets/box{self.id}.sdf")
         pyrosim.Send_Cube(name="Box", pos=[x, y, z], size=[
                           length, width, height])
         pyrosim.End()
@@ -45,7 +56,7 @@ class SOLUTION:
         width = 1
         height = 1
 
-        pyrosim.Start_URDF("assets/body.urdf")
+        pyrosim.Start_URDF(f"assets/body{self.id}.urdf")
         pyrosim.Send_Cube(name="Torso", pos=[0, 0, height * 3 / 2], size=[
             length, width, height])
         pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg",
@@ -59,7 +70,7 @@ class SOLUTION:
         pyrosim.End()
 
     def Create_Brain(self):
-        pyrosim.Start_NeuralNetwork("assets/brain.nndf")
+        pyrosim.Start_NeuralNetwork(f"assets/brain{self.id}.nndf")
         pyrosim.Send_Sensor_Neuron(name=0, linkName='Torso')
         pyrosim.Send_Sensor_Neuron(name=1, linkName='BackLeg')
         pyrosim.Send_Sensor_Neuron(name=2, linkName='FrontLeg')

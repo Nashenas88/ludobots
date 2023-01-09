@@ -2,13 +2,14 @@ from robot import ROBOT
 from world import WORLD
 
 import constants as c
+import os
 import pybullet as p
 import pybullet_data
 import time
 
 
 class SIMULATION:
-    def __init__(self, mode):
+    def __init__(self, mode, id):
         if mode == 'GUI':
             self.mode = p.GUI
         else:
@@ -16,8 +17,12 @@ class SIMULATION:
         p.connect(self.mode)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0, 0, c.GRAVITY)
-        self.world = WORLD()
-        self.robot = ROBOT("../assets/body.urdf", "assets/brain.nndf")
+        self.world = WORLD(id)
+        bodyFile = f"assets/body{id}.urdf"
+        brainFile = f"assets/brain{id}.nndf"
+        self.robot = ROBOT(id, "../" + bodyFile, brainFile)
+        os.remove(bodyFile)
+        os.remove(brainFile)
         self.save_data = True
 
     def Set_Save_Data(self, save_data):

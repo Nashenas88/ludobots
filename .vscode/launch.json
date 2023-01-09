@@ -10,7 +10,8 @@
             "request": "launch",
             "program": "src/simulate.py",
             "args": [
-                "GUI"
+                "GUI",
+                "1"
             ],
             "console": "integratedTerminal",
             "justMyCode": true

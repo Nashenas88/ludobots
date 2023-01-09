@@ -1,7 +1,10 @@
 import pybullet as p
+import os
 
 
 class WORLD:
-    def __init__(self):
+    def __init__(self, id):
         self.planeId = p.loadURDF("plane.urdf")
-        self.box = p.loadSDF("../assets/box.sdf")
+        boxFile = f"assets/box{id}.sdf"
+        self.box = p.loadSDF("../" + boxFile)
+        os.remove(boxFile)
